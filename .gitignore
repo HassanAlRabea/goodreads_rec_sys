@@ -1,3 +1,4 @@
 .env
 dev-data/predictions/
 balanced_ratings.csv
+my_dir/keras_tuner_dem

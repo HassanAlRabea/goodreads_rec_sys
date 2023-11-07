@@ -2,3 +2,6 @@
 dev-data/predictions/
 balanced_ratings.csv
 my_dir/keras_tuner_dem
+predictions.csv
+smaller_predictions.csv
+sorted_smaller_predictions.csv

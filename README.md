@@ -1,88 +1,64 @@
-# Neural Collaborative Filtering for Book Recommendations
-
-This repository contains the implementation of a neural collaborative filtering (NCF) system for book recommendations, using explicit and implicit feedback from users.
+# Book Recommendation System
 
 ## Overview
+This repository contains the implementation of a book recommendation system using Neural Collaborative Filtering (NCF) based on implicit and explicit user feedback.
 
-The system utilizes a deep learning architecture to predict user preferences for books based on past interaction data. The model combines Generalized Matrix Factorization (GMF) and Multi-Layer Perceptron (MLP) to learn from user-book interactions, creating a hybrid recommendation system that captures both low-level interactions and high-level abstractions.
+## Features
+- Data normalization and processing for user and book IDs.
+- Implementation of NeuMF, a fusion of Matrix Factorization (MF) and Multi-Layer Perceptron (MLP) for recommendation.
+- Batch prediction with incremental saving and crash handling.
+- Dynamic sampling of prediction results to reduce file size.
+- User-specific book recommendations with reranking based on user's textual requests.
 
-## Repository Structure
-
-```
-root/
- ├── dev-data/                    # Directory for datasets and predictions
- │   ├── data/                    # Folder containing the raw datasets
- │   │   ├── ratings.csv          # User-book ratings
- │   │   ├── to_read.csv          # Books marked 'to read' by users
- │   │   ├── books.csv            # Book metadata
- │   │   ├── book_tags.csv        # Tags associated with books
- │   │   └── tags.csv             # Tag metadata
- │   └── predictions/             # Folder for prediction outputs
- ├── .env                         # Environment variables for API keys
- └── recommendation_script.py     # Main script for the recommendation system
-```
-
-## Datasets
-
-The datasets include:
-- `ratings.csv`: User-book ratings.
-- `to_read.csv`: Books marked 'to read' by users.
-- `books.csv`: Book metadata including authors, title, and average ratings.
+## Dataset
+The dataset includes user ratings, to-read lists, book metadata, and book tags. These are located in the `data/goodreads_raw` directory and should be structured as follows:
+- `ratings.csv`: User-book interactions with explicit ratings.
+- `to_read.csv`: User-book interactions with implicit feedback.
+- `books.csv`: Metadata of books.
 - `book_tags.csv`: Tags associated with books.
-- `tags.csv`: Tag metadata.
+- `tags.csv`: Tag information.
 
-## Setup
+## Prerequisites
+- Python 3.x
+- Pandas library
+- NumPy library
+- TensorFlow 2.x
+- Keras
+- scikit-learn
+- Keras-tuner
+- dotenv
 
-1. Clone the repository to your local machine.
-2. Ensure that Python 3.x is installed.
-3. Install required dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-4. Place your datasets in the `dev-data/data` directory.
-5. Set your OpenAI API key in a `.env` file.
+Ensure that all the dependencies are installed using the following command:
+```sh
+pip install -r requirements.txt
+```
+
+## Installation
+Clone the repository to your local machine:
+```sh
+git clone [repository link]
+```
+
+## Environment Variables
+This project utilizes a `.env` file to store sensitive information such as API keys. Make sure to create a `.env` file in the root of the project and add the following line:
+```
+OPENAI_API_KEY='Your OpenAI API Key Here'
+```
 
 ## Usage
-
-Run the `recommendation_script.py` script to process the data and generate recommendations:
-```
-python recommendation_script.py
+Run the main script to launch the application:
+```sh
+python app.py
 ```
 
 ## Model Training
+The NeuMF model architecture is defined in the script. You can train the model using the provided data by running the training block in the script. Or leverage the provided model file.
 
-The training process includes:
-- Loading and preprocessing data.
-- Normalizing ratings and combining explicit and implicit feedback.
-- Balancing the dataset by resampling.
-- Defining and training the NCF model with early stopping.
-- Saving model predictions.
+## Batch Predictions
+After training, you can perform batch predictions and save them incrementally. The script `batch_predict_and_save` handles the prediction and saving process.
 
-## Recommendations Generation
+## Recommendation Generation
+The system generates top N recommendations for each user, which can be filtered and reranked based on textual user requests. Examples are provided in the script.
 
-The script includes functions to:
-- Generate batch predictions.
-- Rank and filter recommendations based on user requests.
-- Rerank recommendations according to user preferences using OpenAI's GPT-4 model.
-
-## Evaluation
-
-The system's performance can be evaluated using the provided metrics:
-- Mean Squared Error (MSE)
-- Mean Absolute Error (MAE)
-
-## Environment Variables
-
-You must provide your OpenAI API key in a `.env` file for the reranking function to work.
-
-## Contributions
-
-Contributions to this project are welcome. Please ensure that you follow the existing coding style and add unit tests for any new or changed functionality.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
-
----
-
-For a detailed explanation of each component of the code, refer to the inline comments within the `recommendation_script.py` script.
+## Customization
+You can adjust the model parameters, batch sizes, and other configurations as per your system's capabilities and requirements.

@@ -1,14 +1,17 @@
 # Book Recommendation System
 
 ## Overview
-This repository contains the implementation of a book recommendation system using Neural Collaborative Filtering (NCF) based on implicit and explicit user feedback.
+This repository contains the implementation of a book recommendation system that leverages the power of Neural Collaborative Filtering (NCF) and GPT-4 from OpenAI for personalized book recommendations.
 
 ## Features
 - Data normalization and processing for user and book IDs.
 - Implementation of NeuMF, a fusion of Matrix Factorization (MF) and Multi-Layer Perceptron (MLP) for recommendation.
 - Batch prediction with incremental saving and crash handling.
 - Dynamic sampling of prediction results to reduce file size.
-- User-specific book recommendations with reranking based on user's textual requests.
+- User-specific book recommendations with reranking based on textual requests using GPT-4.
+
+## OpenAI GPT-4 Integration
+The system uses OpenAI's GPT-4 for understanding and processing user textual requests to filter and rerank recommendations. The interaction with GPT-4 is handled through the OpenAI API, which requires an API key for access.
 
 ## Dataset
 The dataset includes user ratings, to-read lists, book metadata, and book tags. These are located in the `data/goodreads_raw` directory and should be structured as follows:
@@ -27,6 +30,7 @@ The dataset includes user ratings, to-read lists, book metadata, and book tags. 
 - scikit-learn
 - Keras-tuner
 - dotenv
+- OpenAI (for GPT-4 API access)
 
 Ensure that all the dependencies are installed using the following command:
 ```sh
